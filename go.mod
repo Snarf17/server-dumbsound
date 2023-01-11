@@ -11,8 +11,10 @@ require (
 )
 
 require (
+	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
+	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/midtrans/midtrans-go v1.3.6 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
