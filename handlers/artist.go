@@ -56,12 +56,12 @@ func (h *handleArtist) AddArtist(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	// rName, _ := r.FormValue("name")
-	rOld, _ := strconv.Atoi(r.FormValue("old"))
+	old, _ := strconv.Atoi(r.FormValue("old"))
 	// rType, _ := r.FormValue("type")
 	// rStartCarer, _ := r.FormValue("startcarer")
 	request := artistdto.ArtistRequest{
 		Name:       r.FormValue("name"),
-		Old:        rOld,
+		Old:        old,
 		Type:       r.FormValue("type"),
 		StartCarer: r.FormValue("startcarer"),
 	}

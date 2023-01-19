@@ -14,7 +14,7 @@ func ArtistRoute(r *mux.Router) {
 	h := handlers.HandleArtist(ArtistRepository)
 
 	r.HandleFunc("/artis", h.ShowArtists).Methods("GET")
-	r.HandleFunc("/artis/{id}", middleware.Auth(h.GetArtist)).Methods("GET")
 	r.HandleFunc("/artis", middleware.Auth(h.AddArtist)).Methods("POST")
+	r.HandleFunc("/artis/{id}", middleware.Auth(h.GetArtist)).Methods("GET")
 
 }

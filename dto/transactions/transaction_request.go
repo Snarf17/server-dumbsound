@@ -7,10 +7,9 @@ import (
 type TransactionRequest struct {
 	ID        int          `json:"id"`
 	StartDate time.Time    `json:"startDate"`
-	DueDate   time.Time    `json:"duetDate"`
+	DueDate   time.Time    `json:"dueDate"`
 	UserID    int          `json:"user_id"`
 	User      UserResponse `json:"user"`
-	Attache   string       `json:"attache"`
 	Status    string       `json:"status" `
 }
 

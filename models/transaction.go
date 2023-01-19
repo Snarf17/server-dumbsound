@@ -3,9 +3,9 @@ package models
 import "time"
 
 type Transaction struct {
-	ID        int          `json:"id" gorm:"primary_key:auto_increment"`
+	ID        int          `json:"id"`
 	StartDate time.Time    `json:"startDate"`
-	DueDate   time.Time    `json:"duetDate"`
+	DueDate   time.Time    `json:"dueDate"`
 	UserID    int          `json:"user_id"`
 	User      UserResponse `json:"user"`
 	Attache   string       `json:"attache" gorm:"type:varchar(255)"`
@@ -15,7 +15,7 @@ type Transaction struct {
 type TransactionResponse struct {
 	ID        int          `json:"id"`
 	StartDate time.Time    `json:"startDate"`
-	DueDate   time.Time    `json:"duetDate"`
+	DueDate   time.Time    `json:"dueDate"`
 	UserID    int          `json:"user_id"`
 	User      UserResponse `json:"user"`
 	Attache   string       `json:"attache"`

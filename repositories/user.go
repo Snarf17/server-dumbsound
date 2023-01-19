@@ -9,6 +9,7 @@ import (
 type UserRepository interface {
 	ShowUsers() ([]models.User, error)
 	GetUser(ID int) (models.User, error)
+	UpdateUsers(user models.User) (models.User, error)
 }
 
 func RepositoryUser(db *gorm.DB) *repository {
@@ -28,6 +29,9 @@ func (r *repository) GetUser(ID int) (models.User, error) {
 	return users, err
 }
 
+func (r *repository) UpdateUsers(user models.User) (models.User, error) {
+	// var user models.User
+	err := r.db.Save(&user).Error
 
-
-
+	return user, err
+}

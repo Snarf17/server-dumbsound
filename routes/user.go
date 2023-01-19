@@ -2,6 +2,7 @@ package routes
 
 import (
 	"dumbsound/handlers"
+	"dumbsound/pkg/middleware"
 	"dumbsound/pkg/mysql"
 	"dumbsound/repositories"
 
@@ -14,5 +15,6 @@ func UserRoute(r *mux.Router) {
 
 	r.HandleFunc("/users", h.ShowUsers).Methods("GET")
 	r.HandleFunc("/user/{id}", h.GetUser).Methods("GET")
+	r.HandleFunc("/user/{id}", middleware.Auth(h.UpdateUsers)).Methods("PATCH")
 
 }

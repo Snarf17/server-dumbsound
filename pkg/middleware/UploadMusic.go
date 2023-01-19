@@ -24,20 +24,17 @@ func UploadMusic(next http.HandlerFunc) http.HandlerFunc {
 
 		if err != nil {
 			fmt.Println(err)
-			json.NewEncoder(w).Encode("Error Retrieving the File")
+			json.NewEncoder(w).Encode("Gagal Upload File Music")
 			return
 		}
 		defer file.Close()
-		// fmt.Printf("Uploaded File: %+v\n", handler.Filename)
-		// fmt.Printf("File Size: %+v\n", handler.Size)
-		// fmt.Printf("MIME Header: %+v\n", handler.Header)
+
 		const MAX_UPLOAD_SIZE = 10 << 20 // 10MB
-		// Parse our multipart form, 10 << 20 specifies a maximum
-		// upload of 10 MB files.
+
 		r.ParseMultipartForm(MAX_UPLOAD_SIZE)
 		if r.ContentLength > MAX_UPLOAD_SIZE {
 			w.WriteHeader(http.StatusBadRequest)
-			response := Result{Code: http.StatusBadRequest, Message: "Max size in 1mb"}
+			response := dto.ResultError{Code: http.StatusBadRequest, Message: "Max size in 1mb"}
 			json.NewEncoder(w).Encode(response)
 			return
 		}
@@ -64,9 +61,9 @@ func UploadMusic(next http.HandlerFunc) http.HandlerFunc {
 		tempFile.Write(fileBytes)
 
 		data := tempFile.Name()
-		filename := data[13:]
-		// add filename to ctx
-		ctx := context.WithValue(r.Context(), "dataMusic", filename)
+		// filename := data[13:]
+
+		ctx := context.WithValue(r.Context(), "dataMusic", data)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

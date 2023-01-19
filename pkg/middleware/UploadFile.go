@@ -16,7 +16,7 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 
 		if err != nil {
 			fmt.Println(err)
-			json.NewEncoder(w).Encode("Error Retrieving the File")
+			json.NewEncoder(w).Encode("Gagal upload gambar")
 			return
 		}
 		defer file.Close()
@@ -48,9 +48,9 @@ func UploadFile(next http.HandlerFunc) http.HandlerFunc {
 		tempFile.Write(fileBytes)
 
 		data := tempFile.Name()
-		filename := data[18:]
+		// filename := data[18:]
 
-		ctx := context.WithValue(r.Context(), "dataFile", filename)
+		ctx := context.WithValue(r.Context(), "dataFile", data)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

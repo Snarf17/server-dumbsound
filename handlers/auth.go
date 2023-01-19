@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	registerdto "dumbsound/dto/auth"
+	authdto "dumbsound/dto/auth"
 	dto "dumbsound/dto/result"
 	"dumbsound/models"
 	"dumbsound/pkg/bcrypt"
@@ -26,12 +26,10 @@ func HandlerLogReg(LogRegRepository repositories.LogRegRepository) *handlerLogRe
 	return &handlerLogReg{LogRegRepository}
 }
 
-
-
 func (h *handlerLogReg) Register(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	request := new(registerdto.RegisterRequest)
+	request := new(authdto.RegisterRequest)
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -80,7 +78,7 @@ func (h *handlerLogReg) Register(w http.ResponseWriter, r *http.Request) {
 func (h *handlerLogReg) Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	request := new(registerdto.LoginRequest)
+	request := new(authdto.LoginRequest)
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
@@ -122,10 +120,11 @@ func (h *handlerLogReg) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	loginResponse := registerdto.LoginResponse{
+	loginResponse := authdto.LoginResponse{
 		Message: "Success",
 		Email:   user.Email,
 		Token:   token,
+		Role:    user.Role,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -134,8 +133,34 @@ func (h *handlerLogReg) Login(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func convertResponseRegister(u models.User) registerdto.RegisterResponse {
-	return registerdto.RegisterResponse{
+func convertResponseRegister(u models.User) authdto.RegisterResponse {
+	return authdto.RegisterResponse{
 		Message: "Success",
 	}
+}
+func (h *handlerLogReg) CheckAuth(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	userInfo := r.Context().Value("userInfo").(jwt.MapClaims)
+	userId := int(userInfo["id"].(float64))
+
+	user, err := h.LogRegRepository.Getuser(userId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	CheckAuthResponse := authdto.CheckAuthResponse{
+		Id:        user.ID,
+		FullName:  user.Fullname,
+		Email:     user.Email,
+		Role:      user.Role,
+		Subscribe: user.Subscribe,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	response := dto.SuccessResult{Code: http.StatusOK, Data: CheckAuthResponse}
+	json.NewEncoder(w).Encode(response)
 }

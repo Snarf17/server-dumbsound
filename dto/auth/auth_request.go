@@ -7,7 +7,7 @@ type RegisterRequest struct {
 	Gender   string `json:"gender" form:"gender" validate:"required"`
 	Phone    string `json:"phone" form:"phone" validate:"required"`
 	Address  string `json:"address" form:"address" validate:"required"`
-	Role     string `json:"role" form:"role" validate:"required"`
+	Role     string `json:"role" form:"role"`
 }
 type LoginRequest struct {
 	Email    string ` json:"email" form:"password" validate:"required"`
