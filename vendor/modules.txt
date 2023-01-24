@@ -61,9 +61,6 @@ github.com/leodido/go-urn
 ## explicit; go 1.13
 github.com/midtrans/midtrans-go
 github.com/midtrans/midtrans-go/coreapi
-github.com/midtrans/midtrans-go/snap
-# github.com/stripe/stripe-go v70.15.0+incompatible
-## explicit
 # golang.org/x/crypto v0.5.0
 ## explicit; go 1.17
 golang.org/x/crypto/bcrypt
@@ -71,6 +68,8 @@ golang.org/x/crypto/blowfish
 # gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
 ## explicit
 gopkg.in/alexcesaro/quotedprintable.v3
+# gopkg.in/go-playground/assert.v1 v1.2.1
+## explicit
 # gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 ## explicit
 gopkg.in/gomail.v2

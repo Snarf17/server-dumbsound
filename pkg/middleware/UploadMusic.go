@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"context"
+	dto "dumbsound/dto/result"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -34,7 +35,7 @@ func UploadMusic(next http.HandlerFunc) http.HandlerFunc {
 		r.ParseMultipartForm(MAX_UPLOAD_SIZE)
 		if r.ContentLength > MAX_UPLOAD_SIZE {
 			w.WriteHeader(http.StatusBadRequest)
-			response := dto.ResultError{Code: http.StatusBadRequest, Message: "Max size in 1mb"}
+			response := dto.ErrorResult{Code: http.StatusBadRequest, Message: "Max size in 1mb"}
 			json.NewEncoder(w).Encode(response)
 			return
 		}

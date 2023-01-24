@@ -42,6 +42,10 @@ func (h *handleTransaction) ShowTransactions(w http.ResponseWriter, r *http.Requ
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(err.Error())
 		return
+
+		// for i, p := range transaction {
+		// 	// transaction[i].Attache = payment_file + p.Attache
+		// }
 	}
 	// for i, p := range transaction {
 	// 	// transaction[i].Attache = payment_file + p.Attache

@@ -3,7 +3,7 @@ module dumbsound
 go 1.18
 
 require (
-	github.com/cloudinary/cloudinary-go v1.7.0
+	// github.com/cloudinary/cloudinary-go v1.7.0
 	github.com/cloudinary/cloudinary-go/v2 v2.2.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/gorilla/handlers v1.5.1
